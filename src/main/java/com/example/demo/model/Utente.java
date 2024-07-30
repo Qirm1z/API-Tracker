@@ -38,8 +38,19 @@ public class Utente {
 	@Range(min=120, max=210, message= "L'altezza dev'essere compreso tra 120cm e 210cm")
 	private String altezza;
 	
+	private Integer mMI;
+	
 	@Column(nullable=false)
 	private String ruolo = "USER"; //Ruolo default
+	
+	public Integer getmMI() {
+		return mMI;
+	}
+
+	public void setmMI(Integer mMI) {
+		this.mMI = mMI;
+	}
+
 
 	public Long getId() {
 		return id;
