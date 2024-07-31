@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Utente {
@@ -31,6 +32,9 @@ public class Utente {
 	
 	@NotBlank(message = "La password è mandatoria")
 	private String password;
+	
+	@NotNull(message= "L'età è mandatoria")
+	private Integer eta;
 
 	@Range(min=30, max=150, message= "Il peso dev'essere compreso tra 30kg e 150kg")
 	private String peso;
@@ -43,6 +47,14 @@ public class Utente {
 	@Column(nullable=false)
 	private String ruolo = "USER"; //Ruolo default
 	
+	public Integer getEta() {
+		return eta;
+	}
+
+	public void setEta(Integer eta) {
+		this.eta = eta;
+	}
+
 	public Integer getmMI() {
 		return mMI;
 	}
