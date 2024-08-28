@@ -28,51 +28,51 @@ import jakarta.validation.Valid;
 @RequestMapping("/act")
 public class AttivitaController {
 
-	@Autowired
-	private AttivitaService attivitaService;
-	
-    // Get all destinations
+    @Autowired
+    private AttivitaService attivitaService;
+    
+    // Get all activities
     @GetMapping
-    public List<Attivita> getAllDestinazioni() {
+    public List<Attivita> getAllAttivita() {
         return attivitaService.getAllDestinazioni();
     }
-
-    // Get a destination by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Attivita> getAttivitaById(@PathVariable Long id) {
-        Optional<Attivita> attivita = attivitaService.getAttivitaById(id);
-        return attivita.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                           .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
     
-    // Get all destinations by ID
-    @GetMapping("/utente/{utenteId}")
-    public List<Attivita> getAttivitaByUtenteId(@PathVariable Long utenteId) {
-        return attivitaService.getAttivitaByUserId(utenteId);
-    }
-    
-    // Get all destinations for the week
+    // Get all activities for the current week
     @GetMapping("/week")
     public List<Attivita> getAttivitaWeekly() {
         return attivitaService.getAttivitaWeekly();
     }
 
-    // Create a new destination
+    // Get all activities by user ID
+    @GetMapping("/utente/{utenteId}")
+    public List<Attivita> getAttivitaByUtenteId(@PathVariable Long utenteId) {
+        return attivitaService.getAttivitaByUserId(utenteId);
+    }
+
+    // Get an activity by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Attivita> getAttivitaById(@PathVariable Long id) {
+        Optional<Attivita> attivita = attivitaService.getAttivitaById(id);
+        return attivita.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
+                       .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    // Create a new activity
     @PostMapping
     public ResponseEntity<Attivita> createAttivita(@Valid @RequestBody Attivita attivita) {
         Attivita savedAttivita = attivitaService.createAttivita(attivita);
         return new ResponseEntity<>(savedAttivita, HttpStatus.CREATED);
     }
 
-    // Update a destination by ID
+    // Update an activity by ID
     @PutMapping("/{id}")
     public ResponseEntity<Attivita> updateAttivita(@PathVariable Long id, @Valid @RequestBody Attivita attivita) {
         Optional<Attivita> updatedAttivita = attivitaService.updateAttivita(id, attivita);
         return updatedAttivita.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                                  .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                              .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Delete a destination by ID
+    // Delete an activity by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAttivita(@PathVariable Long id) {
         boolean isDeleted = attivitaService.deleteAttivita(id);
