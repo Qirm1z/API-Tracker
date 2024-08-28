@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import org.hibernate.validator.constraints.Range;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +43,7 @@ public class Utente {
 	@Range(min=120, max=210, message= "L'altezza dev'essere compreso tra 120cm e 210cm")
 	private String altezza;
 	
+	@Nullable
 	private Integer mMI;
 	
 	@Column(nullable=false)

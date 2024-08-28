@@ -1,5 +1,8 @@
 package com.example.demo.service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +22,9 @@ public class AttivitaService {
         return attivitaRepository.findAll();
     }
 
+    public List<Attivita> getAttivitaByUserId(Long utenteId) {
+        return attivitaRepository.findByUtenteId(utenteId);
+    }
     public Optional<Attivita> getAttivitaById(Long id) {
         return attivitaRepository.findById(id);
     }
@@ -43,5 +49,11 @@ public class AttivitaService {
         } else {
             return false;
         }
+    }
+    
+    public List<Attivita> getAttivitaWeekly() {
+        LocalDate now = LocalDate.now();
+        LocalDate startOfWeek = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        return attivitaRepository.findByCreatedAtAfter(startOfWeek);
     }
 }

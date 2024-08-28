@@ -44,6 +44,18 @@ public class AttivitaController {
         return attivita.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    
+    // Get all destinations by ID
+    @GetMapping("/utente/{utenteId}")
+    public List<Attivita> getAttivitaByUtenteId(@PathVariable Long utenteId) {
+        return attivitaService.getAttivitaByUserId(utenteId);
+    }
+    
+    // Get all destinations for the week
+    @GetMapping("/week")
+    public List<Attivita> getAttivitaWeekly() {
+        return attivitaService.getAttivitaWeekly();
+    }
 
     // Create a new destination
     @PostMapping

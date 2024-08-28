@@ -1,15 +1,18 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.Range;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -38,6 +41,22 @@ public class Attivita {
     @JoinColumn(name = "utente_id", nullable = false)
     private Utente utente;
     
+    @Column(nullable = false)
+    private LocalDate createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDate.now();
+    }
+    
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	public Date getSportDate() {
 		return sportDate;
 	}
