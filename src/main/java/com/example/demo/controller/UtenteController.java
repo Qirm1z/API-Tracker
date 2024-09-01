@@ -77,6 +77,18 @@ public class UtenteController {
         }
     }
     
+    
+    // Logout endpoint
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader("Authorization") String token) {
+        if (token != null && !token.isEmpty()) {
+            tokenService.deleteByToken(token);
+            return ResponseEntity.ok("Logout avvenuto con successo.");
+        } else {
+            return ResponseEntity.badRequest().body("Token invalido.");
+        }
+    }
+    
 	// Endpoint per la registrazione Utente
     @PostMapping("/register")
     public ResponseEntity<Utente> register(@RequestBody Utente utente) {
